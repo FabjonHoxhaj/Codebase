@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+  <html>
+    <head>
+      <title>www.CodeBase.de</title>
+      <meta charset="utf-8">
+
+      <style>
+
+        table, th,  td
+        {
+           border: solid black;
+        }
+
+        .client, .server
+      {
+        position: relative;
+        left: 15px;
+      }
+      
+      p
+      { 
+        position: relative;
+        left: 36px;
+      
+      }
+      
+      .autor p
+      {
+        font-size: 20px;
+      }
+      
+      </style>
+    </head>
+
+    <body>
+      <h2>1. Beschreibung des Anwendungsszenarios</h2>
+     <p>Es handelt sich um eine Lernplattform ähnlich wie Udemy wo das das  <br>
+        Lernen mit Kursen anhand von Videos möglich ist. Die Anwendung wurde jedoch aus Sicht eines<br>
+            Admins programmiert, bei dem er die Möglichkeit hat neue Kurse zu erstellen.
+     </p>
+     
+  <h2>2. Fachobjekte der Anwendung</h2>
+    <p>
+       In der Anwendung ist das Fachobjekt "Kurs" enthalten. Es besitzt die drei Attribute<br>
+     "picture", "titel", "kosten" und "autor", welche die Eigenschaften eines Kurses sind. 
+    </p>
+    
+  <h2>3. Beschreibung und Begründung der Implementierungsentscheidungen</h2>
+   <h3 class="client">3.1 Client</h3>
+      
+    <p><strong>3.1.1 Strukturierung der HTML-Seiten</strong></p>
+      <p>Die Anwendung beinhaltet insgesamt 8 HTML-Seiten. Darunter 6 Detailseiten die jeweils<br>
+       für einen Kurs erstellt wurden, bei der ein detailliertere Beschreibung des Kurses zu finden ist.<br>
+             Dann beinhaltet die Anwendung noch eine Listenseite(KursList.js),welche gleichzeitig die Startseite ist.<br>
+             Auf dieser Listenseite findet sich eine Ansammlung der vorhandenen Kurse. Außerdem gibt es noch eine<br>
+             Formularseite wo der Admin die Möglichkeit hat einen neuen Kurs zu erstellen. Zwischen den jeweiligen<br>
+             HTML-Seiten kann mithilfe von Buttons navigiert werden. Um auf die Detailseiten der einzelnen Kurse zu<br>
+             gelangen, muss der Button "Beschreibung" geklickt werden. Auf den jeweiligen Detailseiten gibt es<br>
+       wiederum Buttons "hier geht´s zurück" womit sie zurück auf die Startseite gelangen. Um auf die HTML-Seite<br>
+       des Formulars zu gelangen, klickt man auf einen Link "Admin-Bereich". Alle HTML-Seiten wurden in einem Template-Literale erstellt.
+      </p>
+    
+    <p><strong>3.1.2 Layout</strong></p>
+      <p>
+      Für die Listenseite wurde das Flex-Layout benutzt. Die Detailseiten wurden mithilfe eines <br>
+      Layouts realisiert. Für die Listenseite wurde deshalb das Flex-Layout benutzt.<br>
+      Für die Detailseiten wurde ein Flex-Layout sowie ein Grid-Layout verwendet. Um den Bereich<br>
+      "Das wirst du lernen" zu zentrieren habe ich eine Flex-Box benutzt. Und um die einzelnen Stichpunkte<br>
+      innerhalb des Bereichs "Das wirst du lernen" so darzustellen, habe ich das Grid-Layout verwendet, um die <br>
+      einzelnen Stichpunkte wie eine Art Gitter darstellen zu können. Die Strukturbox (bei all den Detailseiten Einleitung)<br>
+      wurde auch (Klassenname "kursinhalt1) das Flexlayout benutzt, um es zu zentrieren.
+    </p>
+    
+    <p><strong>3.1.3 Responsivität</strong></p>
+       <p>Ein Breakpoint wurde für ein Endgerät definiert welches maximal 500px darstellen kann.<br>
+       Es wurde nur für die Listenseite und nur für alle Detailseiten der Breakpoint definiert. <br>
+       Bei der Listenseite hat es den Vorteil, dass die Kurse ab einer Größe unter 500px untereinander dargestellt werden. <br>
+      Bei den Detailseiten hat es den Vorteil das die Stichpunkte nicht nebeneinander bzw. Gittermäßig dargestellt werden<br>
+      sondern auch untereinander</p>
+      
+    
+   <h3 class="server">3.2 Server</h3>
+    <p><strong>3.2.1 Modulstruktur</strong></p>
+       <p>Die Datenhaltung wurde ausgelagert in einer nur dafür vorgesehenen Datei. Da wir aber in anderen Datein<br>
+              auf unsere Datenhaltung zugreifen müssen, habe ich in der Datei "routing.js" meine Datenhaltung als Modul<br>
+              importiert. In der Datei wo sich die Datenhaltung befindet musste diese vorher natürlich erst exportiert werden.<br>
+      Das Modul der Datenhaltung wird auch in der Datei "KursList.js" importiert, da wir um einen Kurs zu erstellen<br>
+      auf unser Array zugreifen müssen. In der "routing.js" Datei wurden die restlichen Module importiert.<br>
+      Es wurden die Template-Literale aller Detailseiten importiert, da wir diese für unser routing brauchten.<br>
+      Auch wurden in "routing.js" unsere Listenseite und unsere Formularseite als Module importiert, da diese ebenfalls<br>
+      notwendig für unser routing war. Die beiden anderen express Module habe ich importiert um die API von Express<br>
+      zu erreichen.</p>
+     
+    <p><strong>3.2.2 Unterstützte URLs/Endpunkte</strong></p>
+     <table>
+           <tr>
+            <th>URL</th>
+            <th>HTTP-Methode</th>
+            <th>Aktion</th>
+          </tr>
+    
+          <tr>
+           <td>/neuerKurs</td>
+           <td>GET(diese Methode gibt mir die Formularseite zurück. </td>
+           <td>Anzeigen der Formularseite</td>
+         </tr>
+     
+        <tr>
+          <td>/detailJS</td>
+          <td>GET(diese Get-Methode liefert uns unsere Detailseite vom Kurs JS.</td>
+          <td>Anzeigen der JS-Beschreibung</td>
+        </tr>
+    
+    <tr>
+           <td>/detailAngular</td>
+           <td>GET(diese Get-Methode liefert uns unsere Detailseite vom Kurs Angular)</td>
+           <td>Anzeigen der Angular-Beschreibung</td>
+         </tr>
+     
+     <tr>
+           <td>/detailPython</td>
+           <td>GET(diese Get-Methode liefert uns unsere Detailseite vom Kurs Python)</td>
+           <td>Anzeigen der Python-Beschreibung</td>
+         </tr>
+     
+     <tr>
+           <td>/detailDL</td>
+           <td>GET (diese Get-Methode liefert uns unsere Detailseite vom Kurs DeepLearning)</td>
+           <td>Anzeigen der DeepLearning-Beschreibung</td>
+         </tr>
+     
+     <tr>
+           <td>/detailSql</td>
+           <td>GET(diese Get-Methode liefert uns unsere Detailseite vom Kurs SQL)</td>
+           <td>Anzeigen der SQL-Beschreibung</td>
+         </tr>
+     
+     <tr>
+           <td>/detailHack</td>
+           <td>GET(diese Get-Methode liefert uns unsere Detailseite vom Kurs Hacking)</td>
+           <td>Anzeigen der Hack-Beschreibung</td>
+         </tr>
+     
+     <tr>
+           <td>/</td>
+           <td>Get(Diese gibt uns unsere Listen-Seite zurück wo sich unsere Ansammlung der Kurse befindet)</td>
+           <td>Anzeigen der Listen-Seite bzw. Startseite</td>
+         </tr>
+     
+     <tr>
+           <td>/neuerKurs</td>
+           <td>POST (Hier werden die Daten die im Formular eingegeben werden zurückgesendet.
+         In dieser Methode wir ein neues Objekt(Kurs) mit den zurückgeschickten Daten erstellt und in das Array zu
+       den schon vorhanden Kurse hinzugefügt.)</td>
+           <td>Neuanlage eines Kurses</td>
+         </tr>
+     </table>
+   
+   
+  <h2>4. Start der Anwendung</h2>
+    <p>Die Anwendung ist unter der folgenden URL erreichbar: "http://localhost:8042"
+       Man startet die Anwendung indem man mit "cd" zum Ordner "routes" navigiert<br>
+     und dort den Befehl: "nodemon routing.js" ausführt. 
+     </p>
+    
+  <h2 class="autor">5. Autorenschaft der Quellcode-Datein</h2>
+    <p>Ich Hoxhaj, Fabjon(7089700) habe die Anwendung ohne ein anderen Gruppenmitglied gemacht!</p>
+
+
+    <h2 class="autor">6. Erklärung Methoden</h2>
+    <p>Die Methode "createCourses()" dient dazu die Html-Darstellung der Kurse dynamisch gemäß des Inhaltes des Arrays, wo die vorher definierten Kurse 
+      sich befinden, darzustellen.</p>
+  </body>
+</html>
